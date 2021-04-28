@@ -1,0 +1,21 @@
+{% extends "layouts/dashboard.html" %}
+{% from "macros/_forms.html" import form_card %}
+{% from "macros/_fields.html" import input %}
+{% block title %}Status{% endblock %}
+{% block dash %}
+{% call form_card(form=form,action=request.url,title='Status',url_cancelamento=url_for('core.propostas'),upload=False)  %} 
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-lg-6 col-xl-6 text-center">
+         
+          {{input(form.text)}}
+          {{input(form.operador)}}
+        </div>
+        </div>
+    
+</div>
+
+
+{% endcall %}
+    
+{% endblock %}

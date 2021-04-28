@@ -1,0 +1,170 @@
+{% extends "layouts/dashboard.html" %}
+{% from "macros/_forms.html" import form_card %}
+{% from "macros/_fields.html" import input %}
+{% block title %}Status{% endblock %}
+{% block dash %}
+{% call form_card(form=form,action=request.url,title='Status',url_cancelamento=url_for('core.propostas'),upload=False)  %} 
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-lg-6 col-xl-6 text-center">
+          {{input(form.proposta)}}
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-6 text-center">
+          {{input(form.cliente)}}
+        </div>
+</div>
+<br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-lg-6 col-xl-6 text-center">
+      {{input(form.keywords)}}
+    </div>
+    <div class="col-md-12 col-lg-6 col-xl-6 text-center">
+      {{input(form.email)}}
+    </div>
+ 
+</div>
+<br>
+
+<div class="row">
+        <div class="col-md-12 col-lg-6 col-xl-6 text-center">
+          {{input(form.nome_para_contato)}}
+        </div>
+       
+        <div class="col-md-12 col-lg-4 col-xl-6 text-center">
+          {{input(form.telefone)}}
+        </div>
+    </div>
+  </div>
+<br>
+
+<br>
+<div class="row">
+        <div class="col-md-12 col-lg-4 col-xl-6 text-center">
+          {{input(form.dia_fechamento)}}
+        </div>
+        <div class="col-md-12 col-lg-4 col-xl-2 text-center">
+          {{input(form.vigencia_inicial)}}
+        </div>
+        <div class="col-md-12 col-lg-4 col-xl-2 text-center">
+          {{input(form.vigencia_final)}}
+        </div>
+</div>
+<br>
+      <div class="row">
+     
+        <div class="col-md-12 col-lg-4 col-xl-6 text-center">
+          {{input(form.dia_vencimento)}}
+        </div>
+        <div class="col-md-12 col-lg-4 col-xl-6 text-center">
+          {{input(form.prazo_vencimento)}}
+        </div>
+    </div>
+    <hr>
+    <table id="listas" class="table table-bordered table-hover" style="width: 100%;">
+      <thead>
+        <tr>
+         
+          <th width="10%">Produto</th>
+          <th>Horas mês</th>
+          <th>Frequência</th>
+          <th>Total Cumulativo</th>
+        
+        </tr>
+        </thead>
+        <tr>
+          
+          <td width="10%"><br>Investigação</td>
+          <td> {{input(form.horas_mes_investigacao)}}  </td>
+          <td> {{input(form.frequencia_investigacao)}}</td>
+          <td> {{input(form.total_cumulativo_investigacao)}}</td>  
+          
+        </tr>
+
+         
+
+        <tr>
+         
+          <td width="10%"><br>Análise de Malware</td>
+          <td> {{input(form.horas_mes_anal_malware)}}  </td>
+          <td> {{input(form.frequencia_anal_malware)}}</td>
+          <td> {{input(form.total_cumulativo_anal_malware)}}</td>  
+             
+        </tr>
+
+        <tr>
+        
+          <td width="10%"><br>Contra Inteligência</td>
+          <td> {{input(form.horas_mes_anal_contra_int)}}  </td>
+          <td> {{input(form.frequencia_anal_contra_int)}}</td>
+          <td> {{input(form.total_cumulativo_anal_contra_int)}}</td>  
+             
+        </tr>
+
+        <tr>
+        
+          <td width="10%"><br>Pentest</td>
+          <td> {{input(form.horas_mes_pentest)}}  </td>
+          <td> {{input(form.frequencia_pentest)}}</td>
+          <td> {{input(form.total_cumulativo_pentest)}}</td>  
+          
+        </tr>  
+
+          <tr>
+      
+            <td width="10%"><br>R.I.</td>
+            <td> {{input(form.horas_mes_ri)}}  </td>
+            <td> {{input(form.frequencia_ri)}}</td>
+            <td> {{input(form.total_cumulativo_ri)}}</td>  
+            
+          </tr>
+  
+          <tr>
+         
+            <td width="10%"><br>Treinamento</td>
+            <td> {{input(form.horas_mes_treinamento)}}  </td>
+            <td> {{input(form.frequencia_treinamento)}}</td>
+            <td> {{input(form.total_cumulativo_treinamento)}}</td>  
+             
+          </tr>
+
+          <tr>
+      
+            <td width="10%"><br>Consultoria </td>
+            <td> {{input(form.horas_mes_consultoria)}}  </td>
+            <td> {{input(form.frequencia_consultoria)}}</td>
+            <td> {{input(form.total_cumulativo_consultoria)}}</td>  
+            
+          </tr>
+          
+        </tr>
+        <tbody>
+          
+        </tbody>
+    </table>
+    
+</div>
+{% endcall %}
+{% endblock %}
+{% block js_dash %}
+<script>
+  $(function () {
+      var dt = $('#listas').DataTable(global_datatable);
+      $("#cep").blur(function () {
+        var id_rua="#endereco";
+        var id_bairro="#bairro";
+        var id_cidade=" #cidade";
+        var id_uf="#uf";
+        busca_endereco("#cep", id_rua,id_bairro, id_cidade ,id_uf)
+    });
+    $(document).on("click",".btn_opcao_add",function() {
+          var rd = _.random(100, 40000);
+          var rd_name  =`observacoes-${rd}`;
+          var tmp_novo = _.replace(tmp, new RegExp("observacoes_","g"), rd_name);
+          dt.rows.add($(tmp_novo)).draw(true);
+      });
+      
+  });
+</script>
+{% endblock %}
